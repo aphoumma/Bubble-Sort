@@ -1,6 +1,7 @@
-// Test Question 4 Systems Programming
-// One round of bubble sort
-
+// Bubble sort w/ Optimization
+// Stop Bubble Sort After Elements are Sorted
+// Uses "swapped" variable check if any swap took place
+// If no swap occurs on an iteration of the loop, then the bubble sort will end
 
 
 //#include "pch.h"
@@ -16,7 +17,9 @@ int size = 6;
 int i;
 int z;
 int j;
+int swapped; // flag variable mark if a swap occurs
 
+//dynamic memory allocation for array 
 a = (int*)calloc(size, (sizeof(int)));
 
 a[0] = 8;
@@ -34,16 +37,25 @@ printf("%d \n", a[i]);
 }
 
 
-// Sorting array with bubble sort
 
-for (j = 0; j < size - 1; j++)
-for (i = 0; i < size - 1; i++)
-    if (a[i] > a[i + 1])
+
+// Sorting array with Optimized Bubble Sort
+for (i = 0; i < size-1; i++) 
+{
+    swapped = 0; // flag variable set to false
+    for (j = 0; j < size-i-1; j++) 
     {
-        z = a[i];
-        a[i] = a[i + 1];
-        a[i + 1] = z;
+        if (a[j] > a[j + 1])
+        {
+            z = a[j];
+            a[j] = a[j + 1];
+            a[j + 1] = z; 
+            swapped = 1; // if there is a swap, the flag variable is marked as true 
+        if (swapped == 0) // if there is no swap on this pass through loop, flag variable will stay false and bubble sort will end
+            i = 10; // this is condition to stop the loop
+        }
     }
+}
 
 
 printf("Printing array forward after bubble sort \n");
@@ -59,21 +71,3 @@ for (i = 0; i < size; i++)
 printf("%d \n", a[i]);
 
 }
-
-/* printf("Printing array backwards: \n");
-// to print array backwards
-for (i = size - 1; i >= 0; i--)
-printf("%d \n", a[i]);
-
-
-
-
-
-
-
-/* for (i=0; i<size; i++)
-printf("%d \n", a[i]);
-i--; <------ this will make it infinite
-
-
-*/
